@@ -1,6 +1,5 @@
 scipion-pyworkflow
 scipion-em
 scipion-chem
-pandas
-rdkit
+
 

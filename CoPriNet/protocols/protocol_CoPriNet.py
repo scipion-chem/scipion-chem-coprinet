@@ -90,29 +90,36 @@ class ProtChemCoPriNet(EMProtocol):
         print("Predictions results saved as results.csv")
 
     def createOutputStep(self):
-
+        extracted_data=[]
         csv_path = self._getExtraPath("results.csv")
-        scores_df = pd.read_csv(csv_path, sep=',')
+        with open(csv_path, 'r') as file:
+            next(file)
+            for line in file:
+                parts = line.strip().split(',')
+                if len(parts) > 1:
+                    data_after_comma = ','.join(parts[1:])
+                    if not data_after_comma.strip():
+                        extracted_data.append(0)
+                    else:
+                        extracted_data.append(data_after_comma)
+                else:
+                    extracted_data.append(0)
 
         outputSmallMolecules = SetOfSmallMolecules().create(outputPath=self._getPath(), suffix='outputSmallMolecules')
-
+        i=0
         for mol in self.inputSet.get():
             fnSmall = os.path.abspath(mol.getFileName())
             smi = self.getSMI(mol, 1)
-            
-            row = scores_df[scores_df['SMILES'] == smi]
-            if not row.empty:
-                cid= self.getCIDFromSmiles(smi)
-                name=self.getMainNameFromCID(cid)
-                if name == None:
-                    moleculeName=f"{smi}"
-                else: 
-                    moleculeName=f"{name}"
-                smallMolecule = SmallMolecule(smallMolFilename=os.path.relpath(fnSmall), molName=moleculeName)
-                smallMolecule.CoPriNet_Price_Prediction= pwobj.Float(row['CoPriNet'].values[0])
-
-
-                outputSmallMolecules.append(smallMolecule)
+            cid= self.getCIDFromSmiles(smi)
+            name=self.getMainNameFromCID(cid)
+            if name == None:
+                moleculeName=f"{smi}"
+            else: 
+                moleculeName=f"{name}"
+            smallMolecule = SmallMolecule(smallMolFilename=os.path.relpath(fnSmall), molName=moleculeName)
+            smallMolecule.CoPriNet_Price_Prediction= pwobj.Float(extracted_data[i])
+            i+=1
+            outputSmallMolecules.append(smallMolecule)
 
         outputSmallMolecules.updateMolClass()
         self._defineOutputs(outputSmallMolecules=outputSmallMolecules)
