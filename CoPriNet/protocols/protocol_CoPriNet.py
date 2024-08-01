@@ -3,7 +3,6 @@
 # General imports 
 import os
 import csv
-import pandas as pd 
 
 # Specific imports
 from pyworkflow.protocol.params import PointerParam, STEPS_PARALLEL
