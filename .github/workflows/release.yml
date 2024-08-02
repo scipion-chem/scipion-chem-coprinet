@@ -1,7 +1,7 @@
 name: Generate release (Pypi, tag, & GitHub Release)
 on:
   push:
-    branches: [ master, main ]
+    branches: [ cancel ]
 
 jobs:
   deploy:
