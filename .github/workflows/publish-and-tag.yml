@@ -11,4 +11,7 @@ jobs:
     uses: scipion-em/.github/.github/workflows/publish_and_tag.yml@master
     with:
       folder: CoPriNet
-    secrets: inherit
+    secrets:
+      PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+      PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      PYPI_COMMENT: ${{ secrets.PYPI_COMMENT }}
