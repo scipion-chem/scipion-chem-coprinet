@@ -1,2 +1,2 @@
 scipion-em
-package-two @ git+https://github.com/scipion-chem/scipion-chem@devel
+scipion-chem @ git+https://github.com/scipion-chem/scipion-chem@devel
