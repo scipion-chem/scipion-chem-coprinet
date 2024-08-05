@@ -1,10 +1,3 @@
-"""A setuptools based setup module.
-
-See:
-https://packaging.python.org/en/latest/distributing.html
-https://github.com/pypa/sampleproject
-"""
-
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 from codecs import open
@@ -38,7 +31,7 @@ setup(
 	packages=find_packages(),
 	install_requires=[requirements],
 	entry_points={'pyworkflow.plugin': 'CoPriNet = CoPriNet'}#,
-	#package_data={  # Optional
-	#   'retrosynthesis': ['retrosynthesis_logo.png', 'protocols.conf'],
-	#}
+	package_data={  # Optional
+	   'CoPriNet': ['protocols.conf'],
+	}
 )
