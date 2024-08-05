@@ -1,10 +1,3 @@
-"""A setuptools based setup module.
-
-See:
-https://packaging.python.org/en/latest/distributing.html
-https://github.com/pypa/sampleproject
-"""
-
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 from codecs import open
@@ -27,18 +20,18 @@ with open('requirements.txt') as f:
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
 setup(
-	name='scipion-chem-CoPriNet',  # Required
+	name='scipion-chem-coprinet',  # Required
 	version=PLUGIN_VERSION,  # Required
 	description='Scipion framework plugin for the use of CoPriNet software tools',  # Required
 	long_description=long_description,  # Optional
-	url='https://github.com/scipion-chem/scipion-chem-CoPriNet',  # Optional
+	url='https://github.com/scipion-chem/scipion-chem-coprinet',  # Optional
 	author='Verónica Gamo',  # Optional
 	author_email='veronica.gamoparejo@usp.ceu.es',  # Optional
 	keywords='scipion CoPriNet scipion-3.0 cheminformatics',  # Optional
 	packages=find_packages(),
 	install_requires=[requirements],
-	entry_points={'pyworkflow.plugin': 'CoPriNet = CoPriNet'}#,
-	#package_data={  # Optional
-	#   'retrosynthesis': ['retrosynthesis_logo.png', 'protocols.conf'],
-	#}
+	entry_points={'pyworkflow.plugin': 'CoPriNet = CoPriNet'},
+	package_data={  # Optional
+	   'CoPriNet': ['protocols.conf'],
+	}
 )

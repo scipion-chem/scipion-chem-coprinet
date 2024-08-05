@@ -1,5 +1,5 @@
 .. |organization| replace:: scipion-chem
-.. |repository| replace:: scipion-chem-CoPriNet
+.. |repository| replace:: scipion-chem-coprinet
 
 ========================================
 CoPriNet scipion plugin
@@ -77,4 +77,4 @@ This plugin integrates the following software:
 ========================================
 Changelog
 ========================================
-All the recent version changes can be found `here <https://github.com/scipion-chem/scipion-chem-CoPriNet/blob/devel/CHANGES.rst>`_.
+All the recent version changes can be found `here <https://github.com/scipion-chem/scipion-chem-coprinet/blob/devel/CHANGES.rst>`_.

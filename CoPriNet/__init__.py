@@ -24,9 +24,10 @@
 # *
 # **************************************************************************
 
-# Scipion em imports
 import os, subprocess
 from subprocess import run
+
+# Scipion em imports
 from scipion.install.funcs import InstallHelper
 
 # Scipion chem imports
@@ -68,11 +69,3 @@ class Plugin(pwchem.Plugin):
 			dir=os.path.join(cls.getVar(COPRINET_DIC['home']), "CoPriNet")
 			full_program = f'{activation_command} && cd {dir} && {program} {args}'
 			run(full_program, env=cls.getEnviron(), cwd=cwd, shell= True)
-	
-
-
-
-
-
-
-	
