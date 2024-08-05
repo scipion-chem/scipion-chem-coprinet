@@ -31,7 +31,7 @@ setup(
 	packages=find_packages(),
 	install_requires=[requirements],
 	entry_points={'pyworkflow.plugin': 'CoPriNet = CoPriNet'}#,
-	package_data={  # Optional
-	   'CoPriNet': ['protocols.conf'],
-	}
+	#package_data={  # Optional
+	#   'CoPriNet': ['coprinet_logo.png', 'protocols.conf'],
+	#}
 )
