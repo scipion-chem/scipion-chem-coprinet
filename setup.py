@@ -30,7 +30,7 @@ setup(
 	keywords='scipion CoPriNet scipion-3.0 cheminformatics',  # Optional
 	packages=find_packages(),
 	install_requires=[requirements],
-	entry_points={'pyworkflow.plugin': 'CoPriNet = CoPriNet'}#,
+	entry_points={'pyworkflow.plugin': 'CoPriNet = CoPriNet'},
 	package_data={  # Optional
 	   'CoPriNet': ['protocols.conf'],
 	}
