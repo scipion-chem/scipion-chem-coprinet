@@ -19,7 +19,45 @@ RDKIT = 0
 
 class ProtChemCoPriNet(EMProtocol):
 
-    """ CoPriNet"""
+    """ CoPriNet
+    User IA Manual: CoPriNet Protocol
+
+The CoPriNet protocol is designed to estimate the compound price of small
+molecules using a graph neural network model trained on real-world pricing
+data. It enables users to incorporate economic feasibility into compound
+selection pipelines by predicting how expensive a molecule is likely to be,
+based solely on its chemical structure.
+
+To run the protocol, the user must provide a set of ligand structures in
+standardized format, such as SDF or MOL files. Each compound is parsed and
+converted into a molecular graph, which is then passed through the CoPriNet
+model to compute a predicted price. The model does not require any
+experimental or contextual metadata?only the 2D molecular topology is used.
+
+The user can optionally specify whether the input compounds have been
+preprocessed or whether additional cleaning or sanitization steps should be
+performed. This can help resolve minor issues in atom types, aromaticity,
+or hydrogen treatment before feeding the molecules to the neural network.
+
+The protocol outputs a table where each compound is associated with a
+predicted price value, typically expressed in USD per mmol. These scores
+can be used as standalone annotations or integrated with other metrics such
+as docking affinity, synthetic accessibility, or pharmacokinetic properties
+to guide compound prioritization.
+
+Because the predictions are based on a learned model, they reflect pricing
+trends observed in commercial chemical suppliers and can capture nonlinear
+relationships between structure and cost. However, they should be interpreted
+as estimates rather than guaranteed quotes, and are best used for early-stage
+filtering and comparison.
+
+In summary, the CoPriNet protocol provides a fast, automated, and scalable
+way to assess the likely commercial price of chemical compounds. It supports
+structure-based workflows where compound cost is a relevant constraint, and
+it integrates seamlessly with other tools in the Scipion-Chem ecosystem for
+multi-criteria decision making in drug discovery.
+    
+    """
     
     _label = 'CoPriNet'
     
