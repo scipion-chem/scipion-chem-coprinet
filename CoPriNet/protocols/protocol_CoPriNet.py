@@ -20,43 +20,86 @@ RDKIT = 0
 class ProtChemCoPriNet(EMProtocol):
 
     """ CoPriNet
-    User IA Manual: CoPriNet Protocol
 
-The CoPriNet protocol is designed to estimate the compound price of small
-molecules using a graph neural network model trained on real-world pricing
-data. It enables users to incorporate economic feasibility into compound
-selection pipelines by predicting how expensive a molecule is likely to be,
-based solely on its chemical structure.
+    AI Generated:
 
-To run the protocol, the user must provide a set of ligand structures in
-standardized format, such as SDF or MOL files. Each compound is parsed and
-converted into a molecular graph, which is then passed through the CoPriNet
-model to compute a predicted price. The model does not require any
-experimental or contextual metadata?only the 2D molecular topology is used.
+        ProtChemCoPriNet - User Manual
 
-The user can optionally specify whether the input compounds have been
-preprocessed or whether additional cleaning or sanitization steps should be
-performed. This can help resolve minor issues in atom types, aromaticity,
-or hydrogen treatment before feeding the molecules to the neural network.
+        Overview
+        --------
+        The ProtChemCoPriNet protocol predicts the likely commercial price of small
+        molecules using a graph neural network model trained on real-world pricing
+        data. It provides an estimate of compound cost based solely on chemical
+        structure, enabling users to integrate economic feasibility into compound
+        selection workflows.
 
-The protocol outputs a table where each compound is associated with a
-predicted price value, typically expressed in USD per mmol. These scores
-can be used as standalone annotations or integrated with other metrics such
-as docking affinity, synthetic accessibility, or pharmacokinetic properties
-to guide compound prioritization.
+        This protocol is particularly useful in early-stage drug discovery, where
+        prioritizing compounds by both biological activity and predicted cost can
+        help streamline decision-making.
 
-Because the predictions are based on a learned model, they reflect pricing
-trends observed in commercial chemical suppliers and can capture nonlinear
-relationships between structure and cost. However, they should be interpreted
-as estimates rather than guaranteed quotes, and are best used for early-stage
-filtering and comparison.
+        Input Requirements
+        ------------------
+        1. **Molecule Set**:
+           - A `SetOfSmallMolecules` object containing the compounds to analyze.
+           - Supported file formats include SDF, MOL, or SMILES files.
 
-In summary, the CoPriNet protocol provides a fast, automated, and scalable
-way to assess the likely commercial price of chemical compounds. It supports
-structure-based workflows where compound cost is a relevant constraint, and
-it integrates seamlessly with other tools in the Scipion-Chem ecosystem for
-multi-criteria decision making in drug discovery.
-    
+        Workflow
+        --------
+        1. **SMILES extraction**:
+           - Each molecule in the input set is converted to a SMILES representation.
+           - RDKit is used to handle format conversion if needed.
+
+        2. **CSV preparation**:
+           - A CSV file (`test.csv`) is generated with a column of SMILES strings,
+             which serves as input to the CoPriNet model.
+
+        3. **Run CoPriNet**:
+           - The CoPriNet Python module (`pricePrediction.predict`) is executed
+             using the prepared CSV file.
+           - Predictions are written to a results CSV (`results.csv`).
+
+        4. **Output processing**:
+           - Predicted prices are extracted from the results CSV.
+           - Each molecule is associated with its predicted price in a
+             `SetOfSmallMolecules` output object.
+           - Optional: retrieve compound CID and main name from PubChem for better
+             annotation.
+
+        Outputs
+        -------
+        - **results.csv**:
+          - Contains predicted prices for each molecule.
+          - Prices are expressed in USD per mmol (estimated values).
+
+        - **SetOfSmallMolecules output**:
+          - Each `SmallMolecule` object includes:
+            - `CoPriNet_Price_Prediction`: predicted price.
+            - `molName`: compound name derived from PubChem if available; otherwise SMILES.
+
+        Validation & Warnings
+        ---------------------
+        - Input molecules must be valid and parseable; invalid structures may
+          cause errors during SMILES conversion.
+        - Internet connection is required to query PubChem for compound IDs
+          and names.
+        - Predicted prices are estimates based on training data and should
+          not be considered guaranteed quotes.
+        - Ensure the CoPriNet module is correctly installed and accessible in
+          the Python environment.
+
+        Practical Recommendations
+        -------------------------
+        - Use this protocol to filter compounds by predicted cost in combination
+          with other metrics (docking scores, synthetic accessibility, etc.).
+        - Verify SMILES correctness if unexpected results occur.
+        - The pipeline is parallelized; large datasets can be processed efficiently.
+
+        Final Perspective
+        -----------------
+        ProtChemCoPriNet provides an automated and scalable approach to estimate
+        compound pricing based on chemical structure. By integrating predicted
+        cost into compound prioritization, users can make more informed
+        decisions in computational drug discovery workflows.
     """
     
     _label = 'CoPriNet'
